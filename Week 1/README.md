@@ -1,12 +1,5 @@
 # Week 1 — Graphs, BFS & DFS
 
-Welcome to Week 1 of the Summer Of coding: The Optimal Odyessey  
-This week introduces the fundamentals of graph theory and some basic graph traversal algorithms.
-
----
-
-# Topics Covered
-
 ## 1. Introduction to Graphs
 - What is a graph?
 - Nodes and edges
@@ -19,17 +12,13 @@ This week introduces the fundamentals of graph theory and some basic graph trave
 - Adjacency List
 - Space and Time Complexity
 
-## 3. Breadth First Search (BFS)
+## 3. Breadth First Search, Depth First Search, BFS vs DFS
 - Queue-based traversal
 - Level-order exploration
 - Shortest path in unweighted graphs
-
-## 4. Depth First Search (DFS)
 - Recursive DFS
 - Iterative DFS using stack
 - Traversal properties and applications
-
-## 5. BFS vs DFS
 - Differences
 - Complexity analysis
 - When to use which approach
@@ -47,15 +36,8 @@ By the end of this week, students should be able to:
 
 ---
 
-# Recommended Resources
-
-## Reading
-- https://cp-algorithms.com/graph/breadth-first-search.html
-- https://cp-algorithms.com/graph/depth-first-search.html
-
-## Videos
-- William Fiset Graph Theory Playlist  
-  https://www.youtube.com/playlist?list=PLDV1Zeh2NRsB6SWUrDFW2EfLv8VkAvRDN
+# Additional Resources
+- Chapter 11 from CP handbook in Resources Folder
 
 ---
 
@@ -73,12 +55,3 @@ By the end of this week, students should be able to:
 
 ---
 
-# Folder Structure
-
-```bash
-week1/
-│── notes/
-│── slides/
-│── code/
-│── practice/
-└── README.md
