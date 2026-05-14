@@ -44,7 +44,7 @@ By the end of this week, students should be able to:
 - Chapter 22 (Pg no:587-611) from the book [Introduction to Algorithms](https://github.com/Vivek-commits135/Soc-2026-The-Optimal-Odessey/blob/main/Resources/Cormen%20Introduction%20to%20Algorithms.pdf)
 
 ---
-## Practice Problems
+## Problems to be submitted
 
 
 - [Counting Rooms](https://cses.fi/problemset/task/1192/)
@@ -56,13 +56,17 @@ By the end of this week, students should be able to:
 - [Monsters](https://cses.fi/problemset/task/1194/)
 - [Round Trip II](https://cses.fi/problemset/task/1678/)
 - [Game Routes](https://cses.fi/problemset/task/1681)
+---
+
+## Optional Problems
+
 - [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
 - [Fox And Two Dots](https://codeforces.com/contest/510/problem/B)
 - [Ice Cave](https://codeforces.com/contest/540/problem/C)
 - [Kefa and Park](https://codeforces.com/contest/580/problem/C)
 - [Party](https://codeforces.com/contest/115/problem/A)
 - [Mahmoud and Ehab and the bipartiteness](https://codeforces.com/contest/862/problem/B)
----
+
 Useful extensions while solving codeforces problems: [Competitive Companion](https://chromewebstore.google.com/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl?hl=en-GB&utm_source=ext_sidebar)
 ## ❗️ Note
 
