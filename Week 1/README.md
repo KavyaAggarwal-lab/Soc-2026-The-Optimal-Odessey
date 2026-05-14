@@ -37,7 +37,7 @@ By the end of this week, students should be able to:
 ---
 
 # Resources
-- Chapter 11,12 from CP handbook in Resources Folder.
+- Chapter 1,2,4,11,12 from CP handbook in Resources Folder.
 
 ---
 # Additional Resources
