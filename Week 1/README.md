@@ -66,6 +66,7 @@ By the end of this week, students should be able to:
 - [Kefa and Park](https://codeforces.com/contest/580/problem/C)
 - [Party](https://codeforces.com/contest/115/problem/A)
 - [Mahmoud and Ehab and the bipartiteness](https://codeforces.com/contest/862/problem/B)
+---
 
 Useful extensions while solving codeforces problems: [Competitive Companion](https://chromewebstore.google.com/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl?hl=en-GB&utm_source=ext_sidebar)
 ## ❗️ Note
