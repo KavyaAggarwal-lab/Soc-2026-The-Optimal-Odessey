@@ -19,7 +19,7 @@
 **nlohmann/json** for JSON parsing. 
 
 The easiest way is to use the single-header version.
-1. Download the latest [`json.hpp` file directly from their releases page](https://github.com/nlohmann/json/releases/latest/download/json.hpp).
+1. Download the latest [`json.hpp`](https://github.com/nlohmann/json/releases/latest/download/json.hpp) file directly from their releases page]\.
 2. Place `json.hpp` in the same folder as your `main.cpp`.
 3. Include it in your code using `#include "json.hpp"` (Note: The provided template uses `<nlohmann/json.hpp>` assuming a global install, so simply change that line to `"json.hpp"` if you download the file locally)
 ---
