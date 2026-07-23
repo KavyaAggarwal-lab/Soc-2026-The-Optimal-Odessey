@@ -5,6 +5,9 @@
 #include<nlohmann/json.hpp>
 #include<chrono>
 #include"SA.h"
+#include<random>
+#include"Graph.h"
+using namespace std;
 
 int main(int argc, char* argv[]){
 
@@ -27,13 +30,7 @@ int main(int argc, char* argv[]){
     nlohmann::json graph_json;
     file1 >> graph_json; // reading the graph_json file into json
 
-	/*!!! Need changes here !!!*/
-
-	// Create a Graph class that takes the json input
-	// and stores the required graph data structures.
-	// Remember to include the header file containing the class.
-	// Uncomment the line below after implementing the class.
-	// Graph map(graph_json);
+	Graph map(graph_json);
 
     std::ifstream file2(query_json_file);
 
@@ -57,10 +54,36 @@ int main(int argc, char* argv[]){
         type = event["type"];
 
         if (type == "tsp") {
+			vector<int> nodes = event["nodes"].get<vector<int>>()
+			vector<vector<double>> dist(nodes.size(),vector<double>(nodes.size()));
+                for(int i=0;i<nodes.size();i++){
+                        for(int j=0;j<nodes.size();j++){
+                                dist[i][j]=map.adj[nodes[i]][nodes[j]];
+                        }
+                }
+			
+			auto t0 = chrono::high_resolution_clock::now();
+            vector<int> local_tour = simulated_annealing(dist);
+            auto t1 = chrono::high_resolution_clock::now();
+            double time_us = chrono::duration<double, micro>(t1 - t0).count();
+
+			vector<int> tour;
+            for (int i : local_tour) tour.push_back(nodes[i]);
+            double cost = tour_cost(local_tour, dist);
+
+			nlohmann::json out;
+            out["id"] = event["id"];
+            out["simulated_annealing"] = {
+                 {"cost", cost},
+                 {"tour", tour},
+                 {"time_us", time_us}
+            };
+            output_json["results"].push_back(out);
             /* Refer to the sample code below */
             /*
-            // 1. Extract the node subset for this query
-            std::vector<int> nodes = event["nodes"].get<std::vector<int>>();
+            / 1. Extract the node subset for this query
+            
+			std::vector<int> nodes = event["nodes"].get<std::vector<int>>();
 
             // 2. Run all-pairs shortest paths on map.adj (Floyd-Warshall,
             //    same as Week 5), then take the m x m submatrix for `nodes`.
