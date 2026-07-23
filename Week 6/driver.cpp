@@ -2,9 +2,11 @@
 #include<fstream>
 #include<string>
 #include<algorithm>
-#include<nlohmann/json.hpp>
+#include"json.hpp"
 #include<chrono>
+#include<random>
 #include"SA.h"
+#include"Graph.h"
 
 int main(int argc, char* argv[]){
 
@@ -25,16 +27,8 @@ int main(int argc, char* argv[]){
     }
 
     nlohmann::json graph_json;
-    file1 >> graph_json; // reading the graph_json file into json
-
-	/*!!! Need changes here !!!*/
-
-	// Create a Graph class that takes the json input
-	// and stores the required graph data structures.
-	// Remember to include the header file containing the class.
-	// Uncomment the line below after implementing the class.
-	// Graph map(graph_json);
-
+    file1 >> graph_json;
+    Graph map(graph_json);
     std::ifstream file2(query_json_file);
 
     if (!file2.is_open()) {
@@ -43,7 +37,7 @@ int main(int argc, char* argv[]){
     }
 
     nlohmann::json query_json;
-    file2 >> query_json; // reading the query_json file into json object
+    file2 >> query_json;
 
     nlohmann::json output_json;
 
@@ -57,41 +51,30 @@ int main(int argc, char* argv[]){
         type = event["type"];
 
         if (type == "tsp") {
-            /* Refer to the sample code below */
-            /*
-            // 1. Extract the node subset for this query
-            std::vector<int> nodes = event["nodes"].get<std::vector<int>>();
-
-            // 2. Run all-pairs shortest paths on map.adj (Floyd-Warshall,
-            //    same as Week 5), then take the m x m submatrix for `nodes`.
-            //    auto full_dist = floyd_warshall(map.adj);
-            //    auto dist = submatrix(full_dist, nodes);
-
-            // 3. Run simulated annealing on that submatrix.
+                vector<int> nodes=event["nodes"].get<vector<int>>();
+                vector<vector<double>> dist(nodes.size(),vector<double>(nodes.size()));
+                for(int i=0;i<nodes.size();i++){
+                        for(int j=0;j<nodes.size();j++){
+                                dist[i][j]=map.adj[nodes[i]][nodes[j]];
+                        }
+                }
             auto t0 = std::chrono::high_resolution_clock::now();
-            // std::vector<int> local_tour = simulated_annealing(dist);
+            vector<int> local_tour = simulated_annealing(dist);
             auto t1 = std::chrono::high_resolution_clock::now();
             double time_us = std::chrono::duration<double, std::micro>(t1 - t0).count();
 
-            // 4. Map local indices [0..m-1] back to original node IDs.
-            // std::vector<int> tour;
-            // for (int i : local_tour) tour.push_back(nodes[i]);
-            // double cost = tour_cost(local_tour, dist);
+            vector<int> tour;
+            for (int i : local_tour) tour.push_back(nodes[i]);
+            double cost = tour_cost(local_tour, dist);
 
             nlohmann::json out;
             out["id"] = event["id"];
-            // out["simulated_annealing"] = {
-            //     {"cost", cost},
-            //     {"tour", tour},
-            //     {"time_us", time_us}
-            // };
+            out["simulated_annealing"]={{"cost", cost},{"tour", tour},{"time_us", time_us}};
             output_json["results"].push_back(out);
-            */
         }
     }
 
     std::ofstream fout(output_file);
     fout << output_json.dump(4);
-
     return 0;
 }
