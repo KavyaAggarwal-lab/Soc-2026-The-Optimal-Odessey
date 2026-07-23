@@ -1,9 +1,10 @@
-#include<iostream>
-#include<fstream>
-#include<string>
-#include<algorithm>
-#include<nlohmann/json.hpp>
+#include<bits/stdc++.h>
+#include"json.hpp"
 #include<chrono>
+#include"TSP.h"
+using namespace std;
+using namespace std::chrono;
+using json=nlohmann::ordered_json;
 
 int main(int argc, char* argv[]){
 
@@ -24,27 +25,20 @@ int main(int argc, char* argv[]){
     }
 
     nlohmann::json graph_json;
-    file1 >> graph_json; // reading the graph_json file into json 
+    file1 >> graph_json;
+    Graph map(graph_json);
 
-	/*!!! Need changes here !!!*/ 
-	
-	// Create a Graph class that takes the json input
-	// and stores the required graph data structures.
-	// Remember to include the header file containing the class.
-	// Uncomment the line below after implementing the class.
-	// Graph map(graph_json);
-
-    std::ifstream file2(query_json_file);   
+    std::ifstream file2(query_json_file);
 
     if (!file2.is_open()) {
         std::cerr << "Error: Could not open " << query_json_file << '\n';
         return 1;
     }
 
-    nlohmann::json query_json;
-    file2 >> query_json; // reading the query_json file into json object
+    json query_json;
+    file2 >> query_json;
 
-    nlohmann::json output_json;
+    json output_json;
 
     output_json["meta"] = {{"id", query_json["meta"]["id"]}};
     output_json["results"] = nlohmann::json::array();
@@ -52,22 +46,23 @@ int main(int argc, char* argv[]){
     std::string type;
 
     for(auto event : query_json["events"]){
-
         type = event["type"];
-
-		/* Refer to the sample code below */
-        /*
-        if(type == "remove_edge") {
-            int edge_id = event["edge_id"];
-            bool b = remove_edge(map, edge_id);
-            nlohmann::json out;
-            out["id"] = event["id"];
-            out["done"] = b;
-            std::cout << out.dump(4) << std::endl;
-            output_json["results"].push_back(out);
+        if(type=="tsp"){
+                auto start=high_resolution_clock::now();
+                json result;
+                result["id"]=event["id"];
+                vector<int> node;
+                for(auto i:event["nodes"]){
+                        node.push_back(i);
+                }
+                vector<int> path=christofides(map.adj, node);
+                result["tour"]=path;
+                result["cost"]=tour_cost(path,map.adj);
+                auto end=high_resolution_clock::now();
+                result["time_us"]=(end-start).count();
+                output_json["results"].push_back(result);
         }
-        */
     }
-
+    ofstream(output_file)<<output_json.dump(4);
     return 0;
 }
